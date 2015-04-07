@@ -1,0 +1,11 @@
+.CodeMirror-diff-gutter {
+  height: 1.2em;
+  width: 1em;
+  border-left: 4px solid orange;
+}
+
+.CodeMirror-diff-gutter-removed {
+  height: 1em;
+  width: 1em;
+  border-bottom: 4px solid red;
+}

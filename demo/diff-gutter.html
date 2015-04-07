@@ -1,0 +1,91 @@
+<!doctype html>
+
+<title>CodeMirror: diff gutter demo</title>
+<meta charset="utf-8"/>
+<link rel=stylesheet href="../doc/docs.css">
+
+<link rel=stylesheet href="../lib/codemirror.css">
+<link rel=stylesheet href="../addon/diff-gutter/diff-gutter.css">
+<script src="../lib/codemirror.js"></script>
+<script src="../mode/xml/xml.js"></script>
+<script src="../mode/css/css.js"></script>
+<script src="../mode/javascript/javascript.js"></script>
+<script src="../mode/htmlmixed/htmlmixed.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+<script src="../addon/diff-gutter/diff-gutter.js"></script>
+<style>
+    .CodeMirror { line-height: 1.2; }
+    @media screen and (min-width: 1300px) {
+      article { max-width: 1000px; }
+      #nav { border-right: 499px solid transparent; }
+    }
+    span.clicky {
+      cursor: pointer;
+      background: #d70;
+      color: white;
+      padding: 0 3px;
+      border-radius: 3px;
+    }
+  </style>
+<div id=nav>
+  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../doc/logo.png"></a>
+
+  <ul>
+    <li><a href="../index.html">Home</a>
+    <li><a href="../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a class=active href="#">diff gutter</a>
+  </ul>
+</div>
+
+<article>
+<h2>diff gutter demo</h2>
+
+
+<div id=view></div>
+
+<p>The diff gutter addon provides a gutter for displaying the
+   difference between the current document, and a base version,
+   which will often be the version last committed to
+   version control.</p>
+
+<p>This addon depends on
+the <a href="https://code.google.com/p/google-diff-match-patch/">google-diff-match-patch</a>
+library to compute the diffs.</p>
+
+<script>
+var value, orig, editor, diff;
+
+function initUI() {
+  if (value == null) return;
+  var target = document.getElementById("view");
+  target.innerHTML = "";
+
+  var options = {
+    value: value,
+    orig: orig,
+    highlightDifferences: true,
+    gutters: ["diff"],
+    mode: 'text/html',
+    lineNumbers: true,
+    indentWithTabs: false,
+    indentUnit: 2,
+    tabSize: 2
+  };
+
+  editor = CodeMirror(target, options);
+
+  diff = editor.diffEditor(options);
+
+}
+
+window.onload = function() {
+  value = document.documentElement.innerHTML;
+  orig = "<!doctype html>\n\n" + value.replace(/\.\.\//g, "codemirror/").replace("yellow", "orange");
+  initUI();
+};
+
+</script>
+</article>
